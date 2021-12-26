@@ -1,3 +1,4 @@
+import { EventModule } from './module/event/event.module';
 import { UserModule } from './module/user/user.module';
 import { TokenModule } from './module/token/token.module';
 import { Module } from '@nestjs/common';
@@ -5,13 +6,20 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DBConfig } from './config/db.config';
 import { User } from './entity/user.entity';
+import { Due } from './entity/due.entity';
+import { Event } from './entity/event.entity';
+import { Item } from './entity/item.entity';
 
 export const entities = [
   User,
+  Due,
+  Event,
+  Item,
 ]
 
 @Module({
   imports: [
+    EventModule,
     UserModule,
     TokenModule,
     ConfigModule.forRoot({

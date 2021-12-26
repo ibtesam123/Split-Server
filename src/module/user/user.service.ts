@@ -50,6 +50,15 @@ export class UserService {
 
     }
 
+    async getByIDs(ids: number[]): Promise<UserListRes> {
+        let users = await this.userRepo.findByIds(ids)
+
+        return {
+            success: true,
+            data: users,
+        }
+    }
+
     async getAll(): Promise<UserListRes> {
         let userList = await this.userRepo.find()
 
