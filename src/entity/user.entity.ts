@@ -3,6 +3,7 @@ import { Column, CreateDateColumn, Entity, ManyToMany, OneToMany, PrimaryGenerat
 import { Due } from "./due.entity"
 import { Event } from "./event.entity"
 import { Item } from "./item.entity"
+import { Notification } from "./notification.entity"
 
 @Entity('users')
 export class User {
@@ -40,6 +41,9 @@ export class User {
 
     @OneToMany(type => Due, due => due.user2, { onDelete: 'CASCADE' })
     dueUser2: Due
+
+    @OneToMany(type => Notification, noti => noti.user, { onDelete: 'CASCADE' })
+    notifications: Notification[]
 
     @CreateDateColumn()
     created_at: Date

@@ -7,6 +7,7 @@ import { EventRes, EventListRes, ItemRes, DueRes, DueListRes, EventInvitationSen
 import { Logger } from "src/utils/logger.util"
 import { CreateEventDTO, CreateItemDTO, EventInvitaionDTO, UpdateEventDTO } from "src/validation/event.dto"
 import { In, Repository } from "typeorm"
+import { NotificationService } from "../notification/notification.service"
 import { UserService } from "../user/user.service"
 
 export const module: string = 'Event'
@@ -19,6 +20,7 @@ export class EventService {
         @InjectRepository(Item) private readonly itemRepo: Repository<Item>,
         @InjectRepository(Due) private readonly dueRepo: Repository<Due>,
         private readonly userService: UserService,
+        private readonly notiService: NotificationService,
     ) { }
 
     async getOne(id: number): Promise<EventRes> {
@@ -216,7 +218,12 @@ export class EventService {
 
         let event = (await this.getOne(inviDTO.eventID)).data
 
-        //TODO: Send notification to user
+        await this.notiService.create({
+            title: 'New Invitation',
+            description: `You have a new invitation for ${event.title}`,
+            userID: user.id,
+            event: event,
+        })
 
         return {
             success: true,

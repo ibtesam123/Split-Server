@@ -1,3 +1,4 @@
+import { NotificationModule } from './module/notification/notification.module';
 import { EventModule } from './module/event/event.module';
 import { UserModule } from './module/user/user.module';
 import { TokenModule } from './module/token/token.module';
@@ -9,16 +10,19 @@ import { User } from './entity/user.entity';
 import { Due } from './entity/due.entity';
 import { Event } from './entity/event.entity';
 import { Item } from './entity/item.entity';
+import { Notification } from './entity/notification.entity';
 
 export const entities = [
   User,
   Due,
   Event,
   Item,
+  Notification
 ]
 
 @Module({
   imports: [
+    NotificationModule,
     EventModule,
     UserModule,
     TokenModule,
